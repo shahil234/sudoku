@@ -18,7 +18,7 @@ const SubSquare = ({ elementArr, squareIndex }) => {
                   squareBlockIndex: subIndex,
                 })
               }
-              number={subItem}
+              number={subItem?.digit}
               squareIndex={squareIndex}
               rowIndex={index}
               index={subIndex}

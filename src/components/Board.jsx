@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useMemo } from "react";
 import SquareBlock from "./SquareBlock";
 import { getSquareGroup } from "../utils/helper.js";
 import SubSquare from "./SubSquare.jsx";
@@ -8,6 +8,8 @@ export const GameContext = createContext(null);
 
 const Board = ({ puzzle, solution }) => {
   const [currentPuzzle, setCurrentPuzzle] = useState(getSquareGroup(puzzle));
+
+  const puzzleSolution = useMemo(() => getSquareGroup(solution))
 
   const [selectedBlock, setSelectedBlock] = useState({
     squareIndex: null,
@@ -22,6 +24,7 @@ const Board = ({ puzzle, solution }) => {
         setSelectedBlock,
         currentPuzzle,
         setCurrentPuzzle,
+        puzzleSolution
       }}
     >
       <div className="flex flex-col gap-10 items-center justify-between">
