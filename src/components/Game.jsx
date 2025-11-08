@@ -8,7 +8,9 @@ const Game = () => {
   return (
     <div>
       <p>Game</p>
+      <section className="flex items-center justify-between gap-10">
         <Board puzzle={puzzle} solution={solution} />
+      </section>
     </div>
   );
 };

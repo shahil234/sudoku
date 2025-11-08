@@ -7,6 +7,8 @@ const SquareBlock = ({
   rowIndex,
   handleBlockClick,
   selectedBlock,
+  isDigitSelected,
+  hasWrongDigit
 }) => {
   const isSelected =
     selectedBlock.squareIndex === squareIndex &&
@@ -14,9 +16,9 @@ const SquareBlock = ({
     selectedBlock.squareBlockIndex === index;
   return (
     <div style={{
-      backgroundColor: isSelected ? "green" : "white"
+      backgroundColor: hasWrongDigit ? "red" : ((isSelected || isDigitSelected) ? "#4ecf30" : "white")
     }} onClick={handleBlockClick} className="border">
-      <span className=" text-2xl font-bold">{number}</span>
+      <span className=" text-2xl font-bold">{number !== null ? number + 1 : number}</span>
     </div>
   );
 };

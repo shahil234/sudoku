@@ -8,14 +8,18 @@ export const GameContext = createContext(null);
 
 const Board = ({ puzzle, solution }) => {
   const [currentPuzzle, setCurrentPuzzle] = useState(getSquareGroup(puzzle));
+  const [puzzleMistake, setPuzzleMistake] = useState([]);
 
-  const puzzleSolution = useMemo(() => getSquareGroup(solution))
+  const puzzleSolution = useMemo(() => getSquareGroup(solution));
+
 
   const [selectedBlock, setSelectedBlock] = useState({
     squareIndex: null,
     squareRowIndex: null,
     squareBlockIndex: null,
   });
+
+  console.log(puzzleMistake, "this is mistake")
 
   return (
     <GameContext
@@ -24,7 +28,9 @@ const Board = ({ puzzle, solution }) => {
         setSelectedBlock,
         currentPuzzle,
         setCurrentPuzzle,
-        puzzleSolution
+        puzzleSolution,
+        puzzleMistake,
+        setPuzzleMistake
       }}
     >
       <div className="flex flex-col gap-10 items-center justify-between">

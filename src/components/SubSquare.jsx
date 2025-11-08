@@ -1,15 +1,41 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import SquareBlock from "./SquareBlock";
 import { GameContext } from "./Board";
 
 const SubSquare = ({ elementArr, squareIndex }) => {
-  const { selectedBlock, setSelectedBlock } = useContext(GameContext);
+  const { selectedBlock, setSelectedBlock, currentPuzzle, puzzleMistake } =
+    useContext(GameContext);
+  const [mistakeIndexes, setMistakeIndexes] = useState([]);
+
+  useEffect(() => {
+    setMistakeIndexes(
+      puzzleMistake?.filter((mistake) => mistake.squareIndex === squareIndex)
+    );
+  }, [puzzleMistake]);
+  const selectedDigit =
+    currentPuzzle?.[selectedBlock.squareIndex]?.[
+      selectedBlock?.squareRowIndex
+    ]?.[selectedBlock?.squareBlockIndex]?.digit;
+
+  console.log(mistakeIndexes, "this has mistakes", squareIndex);
   return (
     <div className="grid grid-cols-3 grid-rows-3 border-2">
       {elementArr?.map((item, index) => {
         return item?.map((subItem, subIndex) => {
+          const hasWrongDigit =
+            mistakeIndexes?.filter(
+              (mistake) =>
+                mistake.squareRowIndex === index &&
+                mistake.squareBlockIndex === subIndex
+            ).length > 0
+              ? true
+              : false;
           return (
             <SquareBlock
+              isDigitSelected={
+                selectedDigit && selectedDigit === subItem?.digit
+              }
+              hasWrongDigit={hasWrongDigit}
               selectedBlock={selectedBlock}
               handleBlockClick={() =>
                 setSelectedBlock({
