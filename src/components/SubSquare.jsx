@@ -16,10 +16,8 @@ const SubSquare = ({ elementArr, squareIndex }) => {
     currentPuzzle?.[selectedBlock.squareIndex]?.[
       selectedBlock?.squareRowIndex
     ]?.[selectedBlock?.squareBlockIndex]?.digit;
-
-  console.log(mistakeIndexes, "this has mistakes", squareIndex);
   return (
-    <div className="grid grid-cols-3 grid-rows-3 border-2">
+    <div className="grid grid-cols-3 grid-rows-3 border">
       {elementArr?.map((item, index) => {
         return item?.map((subItem, subIndex) => {
           const hasWrongDigit =
@@ -33,7 +31,7 @@ const SubSquare = ({ elementArr, squareIndex }) => {
           return (
             <SquareBlock
               isDigitSelected={
-                selectedDigit && selectedDigit === subItem?.digit
+                selectedDigit!== null && selectedDigit === subItem?.digit
               }
               hasWrongDigit={hasWrongDigit}
               selectedBlock={selectedBlock}

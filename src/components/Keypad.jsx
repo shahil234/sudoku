@@ -3,6 +3,9 @@ import { GameContext } from "./Board";
 import Key from "./Key";
 import { Puzzle, Trash2 } from "lucide-react";
 
+import WinningSound from "../../public/right.mp3";
+import LoosingSound from "../../public/wrong.mp3";
+
 const Keypad = () => {
   const {
     selectedBlock,
@@ -45,7 +48,10 @@ const Keypad = () => {
           selectedBlock.squareRowIndex
         ][selectedBlock.squareBlockIndex].digit === num;
 
+      let sound;
       if (!isCorrect) {
+        sound = new Audio(LoosingSound);
+        sound.play();
         setPuzzleMistake((prev) => [
           ...prev,
           {
@@ -54,7 +60,11 @@ const Keypad = () => {
             squareBlockIndex: selectedBlock.squareBlockIndex,
           },
         ]);
+      } else {
+        sound = new Audio(WinningSound)
       }
+
+      sound.play();
     };
   };
 
@@ -83,14 +93,14 @@ const Keypad = () => {
         item.squareRowIndex === selectedBlock.squareRowIndex &&
         item.squareBlockIndex === selectedBlock.squareBlockIndex
     )[0];
-
+    console.log("yes this was a wrong number", wasWrongDigit);
     if (wasWrongDigit) {
       setPuzzleMistake((prev) =>
         prev.filter(
           (item) =>
-            item.squareIndex === selectedBlock.squareIndex &&
-            item.squareRowIndex === selectedBlock.squareRowIndex &&
-            item.squareBlockIndex === selectedBlock.squareBlockIndex
+            item.squareIndex !== selectedBlock.squareIndex &&
+            item.squareRowIndex !== selectedBlock.squareRowIndex &&
+            item.squareBlockIndex !== selectedBlock.squareBlockIndex
         )
       );
     }

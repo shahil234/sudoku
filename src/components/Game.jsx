@@ -7,8 +7,8 @@ const Game = () => {
 
   return (
     <div>
-      <p>Game</p>
-      <section className="flex items-center justify-between gap-10">
+      <span className="text-xl font-semibold">Sudoku</span>
+      <section className="flex items-center justify-center gap-10 ">
         <Board puzzle={puzzle} solution={solution} />
       </section>
     </div>
